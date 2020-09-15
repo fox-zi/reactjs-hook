@@ -1,29 +1,18 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
+import React from 'react';
+import LoginForm from '../../components/LoginForm';
 import './index.css';
 
-class LoginContainer extends Component {
-  handleCreateTodo = (content) => {
-    const { createTodo } = this.props;
-    createTodo(content);
+export default function LoginContainer() {
+  const handleLogin = (userName, password) => {
+    debugger
+    console.log(userName, password);
   };
 
-  render() {
-    return (
-      <div className='app-container'>
-        <div className='todo-container'>
-        </div>
+  return (
+    <div className='app-container'>
+      <div className='todo-container'>
+        <LoginForm submitLogin={handleLogin} />
       </div>
-    );
-  }
-}
-
-const mapStateToProps = () => {
+    </div>
+  );
 };
-
-const mapDispatchToProps = {
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

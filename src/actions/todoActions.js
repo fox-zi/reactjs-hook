@@ -6,47 +6,26 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const CHANGE_FILTER = 'CHANGE_FILTER';
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 
-export const createTodoDispathRequest = todo => ({
+export const createTodo = todo => ({
   type: CREATE_TODO,
-  payload: {todo}
+  payload: { todo: createTodoInstance(todo) }
 });
 
-export const updateTodoDispathRequest = (id, attributes) => ({
+export const updateTodo = (id, attributes) => ({
   type: UPDATE_TODO,
   payload: {id, attributes}
 });
 
-export const deleteTodoDispathRequest = (id) => ({
+export const deleteTodo = (id) => ({
   type: DELETE_TODO,
   payload: {id},
 });
 
-export const changeFilterDispathRequest = (filter) => ({
+export const changeFilter = (filter) => ({
   type: CHANGE_FILTER,
   payload: {filter},
 });
 
-export const clearCompletedDispathRequest = () => ({
+export const clearCompleted= () => ({
   type: CLEAR_COMPLETED,
 });
-
-export const createTodo = (content) => (dispatch) => {
-  const todo = createTodoInstance(content);
-  dispatch(createTodoDispathRequest(todo));
-};
-
-export const updateTodo = (id, attributes) => (dispatch) => {
-  dispatch(updateTodoDispathRequest(id, attributes));
-};
-
-export const deleteTodo = (id) => (dispatch) => {
-  dispatch(deleteTodoDispathRequest(id));
-};
-
-export const changeFilter =(filter) => (dispatch) => {
-  dispatch(changeFilterDispathRequest(filter));
-};
-
-export const clearCompleted = () => (dispatch) => {
-  dispatch(clearCompletedDispathRequest());
-};
