@@ -1,12 +1,12 @@
 import { getUserFromLocalStorage } from '../utils/authUtils';
-import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS } from "../constants/authConstants";
+import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS, SET_ERROR } from "../constants/authConstants";
 
 const user = getUserFromLocalStorage();
-
+console.log(user, !!user)
 const initialState = {
   user: user,
   authenticated: !!user,
-  loading: false
+  loading: false, user
 };
 
 export default function authReducer(state = initialState, { type, payload }) {

@@ -3,22 +3,27 @@ import { setError, clearError } from "../actions/errorActions"
 import { setUserToLocalStorage } from "../utils/authUtils"
 import api from "../api";
 
-export async function login(credentials, dispatch) {
-  dispatch(loginRequest())
+export const login = (credentials) => {
+  return dispatch => {
+    dispatch(loginRequest())
 
-  try {
-    const { data: { user } } = await api.post('api/v1/users/login', credentials)
-
-    setUserToLocalStorage(user)
-    dispatch(clearError("login"))
-    dispatch(loginSuccess(user))
-  } catch (error) {
-    dispatch(loginFail())
-
-    if (error.response) {
-      dispatch(setError("login", error.response.data.errors))
-    }
-  }
+    api.post('api/v1/users/login', credentials)
+    .then((response) => {
+      const { data } = response;
+      if (data.status !== 'success') {
+        dispatch(loginFail());
+        dispatch(setError("login", data.message));
+      } else {
+        setUserToLocalStorage(data.data);
+        dispatch(clearError("login"));
+        dispatch(loginSuccess(data.data));
+      }
+    })
+    .catch((error) => {
+      dispatch(loginFail());
+      dispatch(setError("login", error));
+    });
+  };
 }
 
 export const loginRequest = () => ({ type: LOGIN_REQUEST });

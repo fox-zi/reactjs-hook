@@ -6,7 +6,7 @@ import { clearError } from "../../actions/errorActions"
 import { login } from "../../actions/authActions"
 import { Redirect } from "react-router-dom"
 
-export default function LoginContainer() {
+export default function RegisterContainer() {
   const dispatch = useDispatch();
   const { Link, Title } = Typography;
 
@@ -55,6 +55,9 @@ export default function LoginContainer() {
           hasFeedback
         >
           <Input placeholder="Email" />
+        </Form.Item>
+        <Form.Item name="password" rules={[{ required: true, message: 'Password is required' }]} hasFeedback>
+          <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: 'Password is required' }]} hasFeedback>
           <Input.Password placeholder="Password" />

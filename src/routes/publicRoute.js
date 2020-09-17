@@ -1,18 +1,17 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
 
-export default function PrivateRoute({ children, authenticated, ...rest }) {
-  console.log("children", children)
+export default function PublicRoute({ children, authenticated, ...rest }) {
   return (
     <Route
       {...rest}
 
       render={
         ({ location }) => {
-          return authenticated ? (
+          return !authenticated ? (
             children
           ) : (
-              <Redirect to={{ pathname: "/login", state: { from: location } }} />
+              <Redirect to={{ pathname: "/", state: { from: location } }} />
             )
         }
       }
