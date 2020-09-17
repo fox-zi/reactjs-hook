@@ -1,16 +1,14 @@
 import axios from 'axios';
-import { API_KEY } from 'react-native-dotenv';
-import StoredData from '../constants/StoredData';
-
+import { getUserFromLocalStorage } from '../utils/authUtils';
 const axiosInstance = axios.create({
-  baseURL: API_KEY,
-  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+  headers: { 'Content-Type': 'application/json', Accept: 'application/json',
+  'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin' }
 });
-
 axiosInstance.interceptors.request.use(
   async (config) => {
     if (!config.headers.Authorization) {
-      const token = await StoredData.get(StoredData.KEY.OAUTH.ACCESS_TOKEN);
+      const token = await getUserFromLocalStorage();
       // eslint-disable-next-line no-param-reassign
       if (token) config.headers.Authorization = `Bearer ${token}`;
     }
@@ -18,5 +16,4 @@ axiosInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
-
 export default axiosInstance;
