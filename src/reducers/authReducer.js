@@ -1,12 +1,11 @@
 import { getUserFromLocalStorage } from '../utils/authUtils';
-import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS, SET_ERROR } from "../constants/authConstants";
+import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS } from '../constants/authConstants';
 
 const user = getUserFromLocalStorage();
-console.log(user, !!user)
 const initialState = {
   user: user,
   authenticated: !!user,
-  loading: false, user
+  loading: false,
 };
 
 export default function authReducer(state = initialState, { type, payload }) {
@@ -15,15 +14,15 @@ export default function authReducer(state = initialState, { type, payload }) {
       return state;
 
     case LOGIN_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
 
     case LOGIN_FAIL:
-      return { ...state, loading: false }
+      return { ...state, loading: false };
 
     case LOGIN_SUCCESS: {
-      const { user } = payload
+      const { user } = payload;
 
-      return { ...state, loading: false, user, authenticated: true }
+      return { ...state, loading: false, user, authenticated: true };
     }
   }
 }

@@ -2,35 +2,30 @@ import React, { useEffect } from 'react';
 import './index.css';
 import { Form, Input, Button, Typography, Alert } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearError } from "../../actions/errorActions"
-import { login } from "../../actions/authActions"
-import { Redirect } from "react-router-dom"
+import { login } from '../../actions/authActions';
 
 export default function LoginContainer() {
   const dispatch = useDispatch();
   const { Link, Title } = Typography;
 
-  const { loading, authenticated } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-  })
-
+    console.log('useEffect');
+  });
 
   const errors = useSelector((state) => state.errors);
 
-  const handleLogin = (userName, password) => {
-    console.log(userName, password);
-  };
-
   const renderErrors = (errors) => {
+    console.log(errors);
     return Object.entries(errors).map(([key, value]) => (
-      <Alert message={`${key} ${value}`} type="error" showIcon="true" closable="true" />
+      <Alert message={`${key} ${value}`} type="error" showIcon="true" closable="true" key={key} />
     ));
   };
 
   const onFinish = (values) => {
     dispatch(login({ user: values }));
-  }
+  };
 
   return (
     <div className="login-container">
